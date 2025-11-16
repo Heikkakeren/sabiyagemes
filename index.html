@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabilagemes - Untuk Sabila</title>
+    <style>
+        /* Reset dan variabel */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink-light: #ffd1dc;
+            --pink-medium: #ffa8c2;
+            --pink-dark: #ff85a1;
+            --purple-light: #d8b4fe;
+            --purple-medium: #c084fc;
+            --text-color: #4a1e5a;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, var(--pink-light), var(--purple-light));
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--text-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--pink-dark);
+        }
+
+        /* Container utama */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Bagian foto */
+        .photo-section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: slideUp 1s ease-out;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border: 15px solid var(--pink-medium);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+            background-color: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-frame::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 5px solid var(--purple-medium);
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--pink-light), var(--purple-light));
+            color: var(--text-color);
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--pink-dark);
+        }
+
+        /* Bagian game */
+        .game-section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            animation: slideUp 1.2s ease-out;
+        }
+
+        .game-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .love-meter {
+            width: 100%;
+            max-width: 400px;
+            height: 30px;
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .love-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--pink-medium), var(--pink-dark));
+            border-radius: 15px;
+            transition: width 0.5s ease;
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .game-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(to right, var(--pink-medium), var(--purple-medium));
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-btn:active {
+            transform: translateY(1px);
+        }
+
+        .game-message {
+            text-align: center;
+            min-height: 60px;
+            padding: 10px;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        /* Bagian pesan rahasia */
+        .secret-section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            animation: slideUp 1.4s ease-out;
+            text-align: center;
+        }
+
+        .secret-title {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .secret-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(to right, var(--purple-medium), var(--pink-dark));
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .secret-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .secret-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--pink-light);
+            border-radius: 15px;
+            display: none;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        /* Bagian musik */
+        .music-section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: slideUp 1.6s ease-out;
+        }
+
+        .music-title {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .music-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(to right, var(--purple-light), var(--pink-medium));
+            color: white;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .music-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .music-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--pink-dark);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            animation: fadeIn 2s ease-in;
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .heart {
+            color: var(--pink-dark);
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+            margin: 0 5px;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .photo-frame {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .game-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-btn {
+                width: 200px;
+            }
+            
+            .music-controls {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .photo-frame {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sabilagemes <span class="heart">♥</span></h1>
+        <p class="subtitle">Sebuah proyek kecil yang dibuat dengan penuh cinta untuk Sabiya</p>
+    </header>
+
+    <div class="container">
+        <section class="photo-section">
+            <h2>Foto Sabiya yang Gemas</h2>
+            <div class="photo-frame">
+                <!-- Foto Sabiya -->
+                <img id="sabiyaPhoto" src="" alt="Foto Sabiya" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                <div class="photo-placeholder" id="photoPlaceholder">
+                    <div>
+                        <p>Foto Sabiya akan muncul di sini!</p>
+                        <p>(sabiya.jpg)</p>
+                        <button id="loadPhotoBtn" style="margin-top: 10px; padding: 8px 15px; background: var(--pink-dark); color: white; border: none; border-radius: 20px; cursor: pointer;">Tampilkan Foto</button>
+                    </div>
+                </div>
+            </div>
+            <p class="photo-caption">Wajah yang selalu bikin senyum ini terukir di hati ❤️</p>
+        </section>
+
+        <section class="game-section">
+            <h2 class="game-title">Game Cinta untuk Sabiya</h2>
+            <div class="game-container">
+                <div class="love-meter">
+                    <div class="love-fill" id="loveFill"></div>
+                </div>
+                <p>Seberapa gemasnya Sabiya hari ini?</p>
+                <div class="game-buttons">
+                    <button class="game-btn" id="btnGemes">Gemes Banget!</button>
+                    <button class="game-btn" id="btnLumayan">Lumayan Gemes</button>
+                    <button class="game-btn" id="btnBiasa">Biasa Aja</button>
+                    <button class="game-btn" id="btnReset">Reset</button>
+                </div>
+                <div class="game-message" id="gameMessage">
+                    Klik tombol di atas untuk melihat pesan spesial!
+                </div>
+            </div>
+        </section>
+
+        <section class="music-section">
+            <h2 class="music-title">Musik Romantis untuk Sabiya</h2>
+            <div class="music-controls">
+                <button class="music-btn" id="playMusic">Putar Musik</button>
+                <button class="music-btn" id="pauseMusic">Jeda Musik</button>
+                <button class="music-btn" id="stopMusic">Stop Musik</button>
+            </div>
+            <p class="music-info" id="musicInfo">Musik: Kasih Putih - (Lagu romantis untuk Sabiya)</p>
+            <audio id="backgroundMusic" loop>
+                <source src="" type="audio/mpeg">
+                Browser Anda tidak mendukung elemen audio.
+            </audio>
+        </section>
+
+        <section class="secret-section">
+            <h2 class="secret-title">Pesan Rahasia untuk Sabiya</h2>
+            <button class="secret-btn" id="secretBtn">Buka Pesan Rahasia</button>
+            <div class="secret-message" id="secretMessage">
+                <p>Hai Sayangku Sabiya,</p>
+                <p>Aku buat ini khusus untuk kamu karena kamu spesial banget. Setiap hari bersamamu itu berharga, dan senyummu selalu bikin hariku cerah.</p>
+                <p>Terima kasih sudah menjadi dirimu yang gemas dan menggemaskan. Aku sayang banget sama kamu! ❤️</p>
+                <p>- Dari yang selalu tersenyum karena kamu</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Dibuat dengan <span class="heart">♥</span> untuk Sabiya | Sabilagemes Project</p>
+    </footer>
+
+    <script>
+        // Fungsi untuk memuat foto Sabiya
+        function loadSabiyaPhoto() {
+            const photo = document.getElementById('sabiyaPhoto');
+            const placeholder = document.getElementById('photoPlaceholder');
+            
+            // Coba beberapa path yang mungkin
+            const possiblePaths = [
+                'foto/sabiya.jpg',
+                './foto/sabiya.jpg',
+                'sabiya.jpg',
+                './sabiya.jpg',
+                '../foto/sabiya.jpg'
+            ];
+            
+            let loaded = false;
+            
+            // Coba setiap path sampai foto berhasil dimuat
+            for (let path of possiblePaths) {
+                const testImage = new Image();
+                testImage.onload = function() {
+                    if (!loaded) {
+                        photo.src = path;
+                        photo.style.display = 'block';
+                        placeholder.style.display = 'none';
+                        loaded = true;
+                        console.log('Foto Sabiya berhasil dimuat dari: ' + path);
+                    }
+                };
+                testImage.onerror = function() {
+                    console.log('Tidak dapat memuat foto dari: ' + path);
+                };
+                testImage.src = path;
+            }
+            
+            // Jika semua path gagal, tampilkan pesan error
+            setTimeout(function() {
+                if (!loaded) {
+                    placeholder.innerHTML = `
+                        <div>
+                            <p>Foto Sabiya tidak dapat dimuat</p>
+                            <p>Pastikan file sabiya.jpg ada di folder 'foto'</p>
+                            <button onclick="loadSabiyaPhoto()" style="margin-top: 10px; padding: 8px 15px; background: var(--pink-dark); color: white; border: none; border-radius: 20px; cursor: pointer;">Coba Lagi</button>
+                        </div>
+                    `;
+                }
+            }, 2000);
+        }
+        
+        // Event listener untuk tombol tampilkan foto
+        document.getElementById('loadPhotoBtn').addEventListener('click', loadSabiyaPhoto);
+        
+        // Coba muat foto otomatis saat halaman dimuat
+        window.addEventListener('load', loadSabiyaPhoto);
+
+        // Fungsi untuk memuat musik
+        function loadMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            const musicInfo = document.getElementById('musicInfo');
+            
+            // Coba beberapa path yang mungkin untuk musik
+            const possiblePaths = [
+                'musik/kasihputih.mp3',
+                './musik/kasihputih.mp3',
+                'kasihputih.mp3',
+                './kasihputih.mp3',
+                '../musik/kasihputih.mp3'
+            ];
+            
+            let loaded = false;
+            
+            // Coba setiap path sampai musik berhasil dimuat
+            for (let path of possiblePaths) {
+                const testAudio = new Audio();
+                testAudio.oncanplaythrough = function() {
+                    if (!loaded) {
+                        audio.src = path;
+                        loaded = true;
+                        console.log('Musik berhasil dimuat dari: ' + path);
+                        musicInfo.textContent = "Musik: Kasih Putih - Siap diputar!";
+                    }
+                };
+                testAudio.onerror = function() {
+                    console.log('Tidak dapat memuat musik dari: ' + path);
+                };
+                testAudio.src = path;
+                
+                // Coba load untuk memicu event
+                testAudio.load();
+            }
+            
+            // Jika semua path gagal, tampilkan pesan error
+            setTimeout(function() {
+                if (!loaded) {
+                    musicInfo.textContent = "Musik tidak dapat dimuat. Pastikan file kasihputih.mp3 ada di folder 'musik'";
+                    console.log('Semua path musik gagal');
+                }
+            }, 3000);
+        }
+        
+        // Kontrol musik
+        document.getElementById('playMusic').addEventListener('click', function() {
+            const audio = document.getElementById('backgroundMusic');
+            audio.play().catch(function(error) {
+                console.log('Gagal memutar musik: ', error);
+                document.getElementById('musicInfo').textContent = "Klik 'Putar Musik' sekali lagi untuk memulai";
+            });
+        });
+        
+        document.getElementById('pauseMusic').addEventListener('click', function() {
+            const audio = document.getElementById('backgroundMusic');
+            audio.pause();
+        });
+        
+        document.getElementById('stopMusic').addEventListener('click', function() {
+            const audio = document.getElementById('backgroundMusic');
+            audio.pause();
+            audio.currentTime = 0;
+        });
+        
+        // Muat musik saat halaman dimuat
+        window.addEventListener('load', loadMusic);
+
+        // Game interaktif
+        const loveFill = document.getElementById('loveFill');
+        const gameMessage = document.getElementById('gameMessage');
+        const btnGemes = document.getElementById('btnGemes');
+        const btnLumayan = document.getElementById('btnLumayan');
+        const btnBiasa = document.getElementById('btnBiasa');
+        const btnReset = document.getElementById('btnReset');
+        
+        // Pesan rahasia
+        const secretBtn = document.getElementById('secretBtn');
+        const secretMessage = document.getElementById('secretMessage');
+        
+        // Array pesan gemas
+        const gemesMessages = [
+            "Wah, Sabiya lagi gemes banget nih! Aku jadi pengen peluk kamu sekarang! ❤️",
+            "Gemes level maksimal! Wajah Sabiya pasti lagi lucu banget ya hari ini?",
+            "Aduh, gemesnya Sabiya bikin aku meleleh! Kamu itu terlalu menggemaskan!",
+            "Kalau Sabiya segemes ini, aku jadi pengen nemenin kamu terus-terusan!",
+            "Level gemes Sabiya over 9000! Aku jatuh cinta lagi sama kamu! 💖"
+        ];
+        
+        const lumayanMessages = [
+            "Lumayan gemes nih! Tapi aku yakin bisa bikin Sabiya lebih gemes lagi!",
+            "Gemesnya Sabiya hari ini cukup buat bikin senyumku sepanjang hari!",
+            "Aku suka banget lihat Sabiya dalam mood gemes seperti ini!",
+            "Gemesnya pas banget! Cocok buat ditemenin nonton film romantis!",
+            "Lumayan gemes ya? Besok pasti bakal lebih gemes lagi! Aku janji!"
+        ];
+        
+        const biasaMessages = [
+            "Biasa aja nih? Ayo kita cari hal-hal seru buat bikin Sabiya gemes!",
+            "Gak apa-apa kok mood biasa, yang penting Sabiya tetap happy!",
+            "Mood biasa hari ini? Besok pasti bakal lebih baik dan gemes!",
+            "Sabiya tetep cantik dan gemes bahkan dalam mood biasa sekalipun!",
+            "Aku tetep sayang sama Sabiya, meskipun lagi mood biasa aja! ❤️"
+        ];
+        
+        // Fungsi untuk mendapatkan pesan acak dari array
+        function getRandomMessage(messages) {
+            return messages[Math.floor(Math.random() * messages.length)];
+        }
+        
+        // Event listeners untuk tombol game
+        btnGemes.addEventListener('click', function() {
+            loveFill.style.width = '100%';
+            gameMessage.textContent = getRandomMessage(gemesMessages);
+            gameMessage.style.color = '#ff4081';
+        });
+        
+        btnLumayan.addEventListener('click', function() {
+            loveFill.style.width = '65%';
+            gameMessage.textContent = getRandomMessage(lumayanMessages);
+            gameMessage.style.color = '#ff85a1';
+        });
+        
+        btnBiasa.addEventListener('click', function() {
+            loveFill.style.width = '30%';
+            gameMessage.textContent = getRandomMessage(biasaMessages);
+            gameMessage.style.color = '#c084fc';
+        });
+        
+        btnReset.addEventListener('click', function() {
+            loveFill.style.width = '0%';
+            gameMessage.textContent = 'Klik tombol di atas untuk melihat pesan spesial!';
+            gameMessage.style.color = '#4a1e5a';
+        });
+        
+        // Event listener untuk pesan rahasia
+        secretBtn.addEventListener('click', function() {
+            if (secretMessage.style.display === 'block') {
+                secretMessage.style.display = 'none';
+                secretBtn.textContent = 'Buka Pesan Rahasia';
+            } else {
+                secretMessage.style.display = 'block';
+                secretBtn.textContent = 'Tutup Pesan Rahasia';
+            }
+        });
+        
+        // Efek hujan hati
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.style.position = 'fixed';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.top = '-50px';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.color = getRandomHeartColor();
+            heart.style.opacity = Math.random();
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '-1';
+            
+            document.body.appendChild(heart);
+            
+            // Animasi jatuh
+            let fallSpeed = 1 + Math.random() * 2;
+            let animateHeart = setInterval(function() {
+                let top = parseFloat(heart.style.top);
+                if (top > window.innerHeight) {
+                    clearInterval(animateHeart);
+                    document.body.removeChild(heart);
+                } else {
+                    heart.style.top = top + fallSpeed + 'px';
+                    heart.style.transform = `rotate(${top / 5}deg)`;
+                }
+            }, 20);
+        }
+        
+        function getRandomHeartColor() {
+            const colors = ['#ff4081', '#ff85a1', '#c084fc', '#ffa8c2', '#d8b4fe'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Jalinkan hujan hati setiap 300ms
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
